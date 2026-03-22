@@ -1,10 +1,11 @@
-﻿using apbd_proj1_rental_system.Domain.Users;
+﻿using apbd_proj1_rental_system.Domain.Equipments;
+using apbd_proj1_rental_system.Domain.Users;
 
 namespace apbd_proj1_rental_system.Domain.Rentals;
 
 public class Rental
 {
-    public Rental(User user, Equipment.Equipment equipment, DateTime startDate, DateTime endDate)
+    public Rental(User user, Equipment equipment, DateTime startDate, DateTime endDate)
     {
         User = user;
         Equipment = equipment;
@@ -14,7 +15,7 @@ public class Rental
 
     public User User { get; set; }
 
-    public Equipment.Equipment Equipment { get; set; }
+    public Equipment Equipment { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public DateTime? ReturnDate { get; set; }

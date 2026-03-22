@@ -1,4 +1,4 @@
-﻿namespace apbd_proj1_rental_system.Domain.Equipment;
+﻿namespace apbd_proj1_rental_system.Domain.Equipments;
 
 public class Projector : Equipment
 {
