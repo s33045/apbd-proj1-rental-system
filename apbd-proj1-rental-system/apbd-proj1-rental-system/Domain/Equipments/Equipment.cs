@@ -13,5 +13,5 @@ public class Equipment
 
     public string Name { get; set; }
     public EquipmentStatus Status { get; set; }
-    private int Id { get; set; }
+    public int Id { get; set; }
 }
