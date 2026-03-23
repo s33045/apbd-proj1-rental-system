@@ -12,6 +12,7 @@ public class Rental
         StartDate = startDate;
         EndDate = endDate;
         ReturnDate = null;
+        Penalty = 0;
     }
 
     public User User { get; set; }
@@ -20,6 +21,7 @@ public class Rental
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public DateTime? ReturnDate { get; set; }
+    public decimal Penalty { get; set; }
 
     public bool IsReturned => ReturnDate.HasValue;
     public bool HasReturnedInTime => ReturnDate >= StartDate && ReturnDate <= EndDate;
