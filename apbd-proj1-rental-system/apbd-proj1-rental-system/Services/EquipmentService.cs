@@ -22,27 +22,13 @@ public class EquipmentService
         return equipment;
     }
 
-    public void ListAllEquipments()
+    public List<Equipment> GetAllEquipments()
     {
-        if (_equipments.Count == 0)
-        {
-            Console.WriteLine("Brak zarejestrowanego wyposażenia.");
-            return;
-        }
-
-        foreach (var equipment in _equipments) Console.WriteLine(equipment.ToString());
+        return _equipments;
     }
 
-    public void ListAvailableEquipments()
+    public List<Equipment> GetAvailableEquipments()
     {
-        var availableEquipments = _equipments.Where(e => e.Status == EquipmentStatus.Available).ToList();
-
-        if (availableEquipments.Count == 0)
-        {
-            Console.WriteLine("Brak wyposażenia dostępnego do wypożyczenia.");
-            return;
-        }
-
-        foreach (var equipment in availableEquipments) Console.WriteLine(equipment.ToString());
+        return _equipments.Where(e => e.Status == EquipmentStatus.Available).ToList();
     }
 }
