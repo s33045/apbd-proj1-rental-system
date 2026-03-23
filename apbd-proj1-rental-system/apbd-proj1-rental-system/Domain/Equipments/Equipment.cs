@@ -14,4 +14,9 @@ public class Equipment
     public string Name { get; set; }
     public EquipmentStatus Status { get; set; }
     public int Id { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Id} | {Name} | {Status.ToDisplayString()}";
+    }
 }

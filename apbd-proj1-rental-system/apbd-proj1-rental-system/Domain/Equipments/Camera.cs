@@ -10,4 +10,9 @@ public class Camera : Equipment
 
     public string Resolution { get; set; }
     public string LensType { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Id} | {Name} | {Status.ToDisplayString()} | {Resolution} | {LensType}";
+    }
 }

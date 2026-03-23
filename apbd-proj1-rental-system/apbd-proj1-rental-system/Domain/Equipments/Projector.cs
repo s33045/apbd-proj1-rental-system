@@ -10,4 +10,9 @@ public class Projector : Equipment
 
     public string Resolution { get; set; }
     public int BrightnessLumens { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Id} | {Name} | {Status.ToDisplayString()} | {Resolution} | {BrightnessLumens} lumenów";
+    }
 }
