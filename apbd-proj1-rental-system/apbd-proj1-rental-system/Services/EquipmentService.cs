@@ -8,7 +8,7 @@ public class EquipmentService
 
     public void AddEquipment(Equipment equipment)
     {
-        if (_equipments.Any(e => e.Id == equipment.Id)) throw new Exception("Equipment already exists");
+        if (_equipments.Any(e => e.Id == equipment.Id)) throw new Exception("Wyposażenie już istnieje.");
 
         _equipments.Add(equipment);
     }
@@ -17,7 +17,7 @@ public class EquipmentService
     {
         var equipment = _equipments.FirstOrDefault(e => e.Id == equipmentId);
 
-        if (equipment == null) throw new Exception("Equipment not found");
+        if (equipment == null) throw new Exception("Nie znaleziono wyposażenia.");
 
         return equipment;
     }

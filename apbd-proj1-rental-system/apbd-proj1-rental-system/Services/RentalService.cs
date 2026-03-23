@@ -12,10 +12,10 @@ public class RentalService
 
     public void AddRental(User user, Equipment equipment, int days)
     {
-        if (equipment.Status != EquipmentStatus.Available) throw new Exception("Equipment is not available");
+        if (equipment.Status != EquipmentStatus.Available) throw new Exception("Wyposażenie w wypożyczeniu nie jest dostępne.");
 
         var activeRentalsCount = _rentals.Count(r => r.User.Id == user.Id && !r.IsReturned);
-        if (activeRentalsCount >= user.MaxActiveRentals) throw new Exception("Maximum active rentals exceeded");
+        if (activeRentalsCount >= user.MaxActiveRentals) throw new Exception("Maksymalna liczba aktywnych wypożyczeń została przekroczona.");
 
         var rental = new Rental(
             user,
@@ -33,9 +33,9 @@ public class RentalService
         var rental = _rentals.FirstOrDefault(r => r.Id == rentalId);
 
         if (rental == null)
-            throw new Exception("Rental does not exist");
+            throw new Exception("Nie znaleziono wypożyczenia.");
 
-        if (rental.IsReturned) throw new Exception("Rental already returned");
+        if (rental.IsReturned) throw new Exception("Wypożyczenie zostało już zwrócone.");
 
         var returnDate = DateTime.Now.Date;
         var lateDays = rental.GetDelayDays(returnDate);

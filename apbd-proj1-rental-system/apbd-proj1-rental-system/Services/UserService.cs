@@ -8,7 +8,7 @@ public class UserService
 
     public void AddUser(User user)
     {
-        if (_users.Any(u => u.Id == user.Id)) throw new Exception("User already exists");
+        if (_users.Any(u => u.Id == user.Id)) throw new Exception("Użytkownik już istnieje.");
 
         _users.Add(user);
     }
@@ -17,7 +17,7 @@ public class UserService
     {
         var user = _users.FirstOrDefault(u => u.Id == userId);
 
-        if (user == null) throw new Exception("User not found");
+        if (user == null) throw new Exception("Nie znaleziono użytkownika.");
 
         return user;
     }
