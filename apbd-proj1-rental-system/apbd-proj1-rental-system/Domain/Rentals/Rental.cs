@@ -11,6 +11,7 @@ public class Rental
         Equipment = equipment;
         StartDate = startDate;
         EndDate = endDate;
+        ReturnDate = null;
     }
 
     public User User { get; set; }
