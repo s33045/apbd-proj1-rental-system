@@ -12,10 +12,12 @@ public class RentalService
 
     public void AddRental(User user, Equipment equipment, int days)
     {
-        if (equipment.Status != EquipmentStatus.Available) throw new Exception("Wyposażenie w wypożyczeniu nie jest dostępne.");
+        if (equipment.Status != EquipmentStatus.Available)
+            throw new Exception("Wyposażenie w wypożyczeniu nie jest dostępne.");
 
         var activeRentalsCount = _rentals.Count(r => r.User.Id == user.Id && !r.IsReturned);
-        if (activeRentalsCount >= user.MaxActiveRentals) throw new Exception("Maksymalna liczba aktywnych wypożyczeń została przekroczona.");
+        if (activeRentalsCount >= user.MaxActiveRentals)
+            throw new Exception("Maksymalna liczba aktywnych wypożyczeń została przekroczona.");
 
         var rental = new Rental(
             user,
