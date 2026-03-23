@@ -56,6 +56,11 @@ public class RentalService
         rental.Return(returnDate, penalty);
     }
 
+    public List<Rental> GetUserActiveRentals(int userId)
+    {
+        return _rentals.Where(r => r.User.Id == userId && r.IsActive).ToList();
+    }
+
     public List<Rental> GetActiveRentals()
     {
         return _rentals.Where(r => r.IsActive).ToList();
