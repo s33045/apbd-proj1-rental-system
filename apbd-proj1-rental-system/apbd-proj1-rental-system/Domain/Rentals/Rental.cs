@@ -11,7 +11,8 @@ public class Rental
     {
         if (user == null) throw new ArgumentNullException(nameof(user));
         if (equipment == null) throw new ArgumentNullException(nameof(equipment));
-        if (endDate < startDate) throw new ArgumentException("End date must be greater than start date");
+        if (endDate < startDate)
+            throw new ArgumentException("Data zakończenia musi być późniejsza niż data rozpoczęcia.");
 
         Id = _nextId++;
         User = user;
@@ -48,9 +49,10 @@ public class Rental
 
     public void Return(DateTime returnDate, decimal penalty)
     {
-        if (IsReturned) throw new Exception("Rental already returned");
-        if (returnDate.Date < StartDate.Date) throw new Exception("Return date must be greater than start date");
-        if (penalty < 0) throw new Exception("Penalty cannot be negative");
+        if (IsReturned) throw new Exception("Wypożyczenie zostało już zwrócone.");
+        if (returnDate.Date < StartDate.Date)
+            throw new Exception("Data zwrotu musi być późniejsza niż data rozpoczęcia");
+        if (penalty < 0) throw new Exception("Wartość karty nie może być ujemna.");
 
         ReturnDate = returnDate.Date;
         Penalty = penalty;
