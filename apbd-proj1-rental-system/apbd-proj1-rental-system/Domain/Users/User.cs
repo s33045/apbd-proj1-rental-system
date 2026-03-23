@@ -6,14 +6,14 @@ public abstract class User
 
     public User(string firstName, string lastName)
     {
+        Id = _nextId++;
         FirstName = firstName;
         LastName = lastName;
-        Id = _nextId++;
     }
 
+    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public int Id { get; set; }
     public abstract int MaxActiveRentals { get; }
     public abstract string UserType { get; }
 

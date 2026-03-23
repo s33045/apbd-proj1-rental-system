@@ -6,14 +6,14 @@ public class Equipment
 
     public Equipment(string name, EquipmentStatus status)
     {
+        Id = _nextId++;
         Name = name;
         Status = status;
-        Id = _nextId++;
     }
 
+    public int Id { get; set; }
     public string Name { get; set; }
     public EquipmentStatus Status { get; set; }
-    public int Id { get; set; }
 
     public override string ToString()
     {
