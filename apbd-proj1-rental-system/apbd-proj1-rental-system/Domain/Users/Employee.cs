@@ -6,5 +6,6 @@ public class Employee : User
     {
     }
 
-    public override string UserType => "Employee";
+    public override int MaxActiveRentals => 5;
+    public override string UserType => "Pracownik";
 }
