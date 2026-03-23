@@ -30,7 +30,7 @@ public class RentalService
         equipment.Status = EquipmentStatus.Rented;
     }
 
-    public void ReturnEquipment(int rentalId, bool damaged)
+    public void ReturnEquipment(int rentalId, bool damaged, DateTime returnDate)
     {
         var rental = _rentals.FirstOrDefault(r => r.Id == rentalId);
 
@@ -39,7 +39,7 @@ public class RentalService
 
         if (rental.IsReturned) throw new Exception("Wypożyczenie zostało już zwrócone.");
 
-        var returnDate = DateTime.Now.Date;
+        /*var returnDate = DateTime.Now.Date;*/
         var lateDays = rental.GetDelayDays(returnDate);
         var penalty = lateDays * PenaltyPerDay;
 
@@ -53,7 +53,7 @@ public class RentalService
             rental.Equipment.Status = EquipmentStatus.Available;
         }
 
-        rental.Return(returnDate, penalty);
+        rental.Return(returnDate.Date, penalty);
     }
 
     public List<Rental> GetUserActiveRentals(int userId)
@@ -66,8 +66,8 @@ public class RentalService
         return _rentals.Where(r => r.IsActive).ToList();
     }
 
-    public List<Rental> GetExpiredRentals()
+    public List<Rental> GetExpiredRentals(DateTime date)
     {
-        return _rentals.Where(r => r.IsExpired(new DateTime().Date)).ToList();
+        return _rentals.Where(r => r.IsExpired(date.Date)).ToList();
     }
 }

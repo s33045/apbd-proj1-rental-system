@@ -56,11 +56,11 @@ public class AppController
         }
     }
 
-    public void ReturnEquipment(int rentalId, bool damaged)
+    public void ReturnEquipment(int rentalId, bool damaged, DateTime returnDate)
     {
         try
         {
-            _rentalService.ReturnEquipment(rentalId, damaged);
+            _rentalService.ReturnEquipment(rentalId, damaged, returnDate);
             Console.WriteLine("Pomyślnie zwrócono wyposażenie.");
         }
         catch (Exception e)
@@ -96,7 +96,13 @@ public class AppController
     public void ShowUserActiveRentals(int userId)
     {
         var rentals = _rentalService.GetUserActiveRentals(userId);
-        if (rentals.Count == 0) Console.WriteLine("Nie znaleziono aktywnych wypożyczeń dla tego użytkownika.");
+        if (rentals.Count == 0)
+        {
+            Console.WriteLine("Nie znaleziono aktywnych wypożyczeń dla tego użytkownika.");
+            return;
+        }
+
+        foreach (var rental in rentals) Console.WriteLine(rental.ToString());
     }
 
     public void ShowActiveRentals()
@@ -113,7 +119,7 @@ public class AppController
 
     public void ShowExpiredRentals()
     {
-        var rentals = _rentalService.GetExpiredRentals();
+        var rentals = _rentalService.GetExpiredRentals(DateTime.Now.Date);
         if (rentals.Count == 0)
         {
             Console.WriteLine("Nie znaleziono przedawnionych wypożyczeń.");

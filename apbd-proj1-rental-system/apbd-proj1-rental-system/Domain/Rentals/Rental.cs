@@ -44,7 +44,7 @@ public class Rental
     public int GetDelayDays(DateTime returnDate)
     {
         if (returnDate.Date <= EndDate.Date) return 0;
-        return (returnDate.Date - StartDate.Date).Days;
+        return (returnDate.Date - EndDate.Date).Days;
     }
 
     public void Return(DateTime returnDate, decimal penalty)
