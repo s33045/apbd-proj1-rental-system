@@ -5,6 +5,8 @@ namespace apbd_proj1_rental_system.Domain.Rentals;
 
 public class Rental
 {
+    private static int _nextId = 1;
+
     public Rental(User user, Equipment equipment, DateTime startDate, DateTime endDate)
     {
         User = user;
@@ -13,6 +15,7 @@ public class Rental
         EndDate = endDate;
         ReturnDate = null;
         Penalty = 0;
+        Id = _nextId++;
     }
 
     public User User { get; set; }
@@ -22,6 +25,8 @@ public class Rental
     public DateTime EndDate { get; set; }
     public DateTime? ReturnDate { get; set; }
     public decimal Penalty { get; set; }
+    public int Id { get; set; }
+
 
     public bool IsReturned => ReturnDate.HasValue;
     public bool HasReturnedInTime => ReturnDate >= StartDate && ReturnDate <= EndDate;
