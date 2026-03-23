@@ -16,4 +16,9 @@ public abstract class User
     public int Id { get; set; }
     public abstract int MaxActiveRentals { get; }
     public abstract string UserType { get; }
+
+    public override string ToString()
+    {
+        return $"{Id} | {FirstName} | {LastName} | {UserType}";
+    }
 }
