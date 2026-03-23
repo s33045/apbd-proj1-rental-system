@@ -10,4 +10,9 @@ public class Laptop : Equipment
 
     public string Processor { get; set; }
     public int RamGb { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Id} | {Name} | {Status.ToDisplayString()} | {Processor} | {RamGb} GB";
+    }
 }
