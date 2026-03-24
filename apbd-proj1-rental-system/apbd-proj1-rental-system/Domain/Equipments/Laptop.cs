@@ -1,15 +1,10 @@
 ﻿namespace apbd_proj1_rental_system.Domain.Equipments;
 
-public class Laptop : Equipment
+public class Laptop(string name, EquipmentStatus status, string processor, int ramGb)
+    : Equipment(name, status)
 {
-    public Laptop(string name, EquipmentStatus status, string processor, int ramGb) : base(name, status)
-    {
-        Processor = processor;
-        RamGb = ramGb;
-    }
-
-    public string Processor { get; set; }
-    public int RamGb { get; set; }
+    private string Processor { get; } = processor;
+    private int RamGb { get; } = ramGb;
 
     public override string ToString()
     {

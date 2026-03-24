@@ -9,8 +9,9 @@ public class Rental
 
     public Rental(User user, Equipment equipment, DateTime startDate, DateTime endDate)
     {
-        if (user == null) throw new ArgumentNullException(nameof(user));
-        if (equipment == null) throw new ArgumentNullException(nameof(equipment));
+        ArgumentNullException.ThrowIfNull(user);
+        ArgumentNullException.ThrowIfNull(equipment);
+
         if (endDate < startDate)
             throw new ArgumentException("Data zakończenia musi być późniejsza niż data rozpoczęcia.");
 
@@ -23,18 +24,17 @@ public class Rental
         Penalty = 0;
     }
 
-    public int Id { get; set; }
-    public User User { get; set; }
-    public Equipment Equipment { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public DateTime? ReturnDate { get; set; }
-    public decimal Penalty { get; set; }
+    public int Id { get; }
+    public User User { get; }
+    public Equipment Equipment { get; }
+    private DateTime StartDate { get; }
+    private DateTime EndDate { get; }
+    private DateTime? ReturnDate { get; set; }
+    private decimal Penalty { get; set; }
 
 
     public bool IsReturned => ReturnDate.HasValue;
     public bool IsActive => !IsReturned;
-    public bool HasReturnedInTime => IsReturned && ReturnDate.Value.Date <= EndDate.Date;
 
     public bool IsExpired(DateTime today)
     {
@@ -43,8 +43,7 @@ public class Rental
 
     public int GetDelayDays(DateTime returnDate)
     {
-        if (returnDate.Date <= EndDate.Date) return 0;
-        return (returnDate.Date - EndDate.Date).Days;
+        return returnDate.Date <= EndDate.Date ? 0 : (returnDate.Date - EndDate.Date).Days;
     }
 
     public void Return(DateTime returnDate, decimal penalty)

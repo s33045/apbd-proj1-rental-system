@@ -1,15 +1,10 @@
 ﻿namespace apbd_proj1_rental_system.Domain.Equipments;
 
-public class Camera : Equipment
+public class Camera(string name, EquipmentStatus status, string resolution, string lensType)
+    : Equipment(name, status)
 {
-    public Camera(string name, EquipmentStatus status, string resolution, string lensType) : base(name, status)
-    {
-        Resolution = resolution;
-        LensType = lensType;
-    }
-
-    public string Resolution { get; set; }
-    public string LensType { get; set; }
+    private string Resolution { get; } = resolution;
+    private string LensType { get; } = lensType;
 
     public override string ToString()
     {

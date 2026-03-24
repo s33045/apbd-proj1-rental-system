@@ -4,24 +4,13 @@ using apbd_proj1_rental_system.Services;
 
 namespace apbd_proj1_rental_system.Application;
 
-public class AppController
+public class AppController(UserService userService, EquipmentService equipmentService, RentalService rentalService)
 {
-    public readonly EquipmentService _equipmentService;
-    public readonly RentalService _rentalService;
-    public readonly UserService _userService;
-
-    public AppController(UserService userService, EquipmentService equipmentService, RentalService rentalService)
-    {
-        _userService = userService;
-        _equipmentService = equipmentService;
-        _rentalService = rentalService;
-    }
-
     public void AddUser(User user)
     {
         try
         {
-            _userService.AddUser(user);
+            userService.AddUser(user);
             Console.WriteLine("Pomyślnie dodano użytkownika.");
         }
         catch (Exception e)
@@ -34,7 +23,7 @@ public class AppController
     {
         try
         {
-            _equipmentService.AddEquipment(equipment);
+            equipmentService.AddEquipment(equipment);
             Console.WriteLine("Pomyślnie dodano wyposażenie.");
         }
         catch (Exception e)
@@ -47,7 +36,7 @@ public class AppController
     {
         try
         {
-            _rentalService.AddRental(user, equipment, days);
+            rentalService.AddRental(user, equipment, days);
             Console.WriteLine("Pomyślnie dodano wypożyczenie.");
         }
         catch (Exception e)
@@ -60,7 +49,7 @@ public class AppController
     {
         try
         {
-            _rentalService.ReturnEquipment(rentalId, damaged, returnDate);
+            rentalService.ReturnEquipment(rentalId, damaged, returnDate);
             Console.WriteLine("Pomyślnie zwrócono wyposażenie.");
         }
         catch (Exception e)
@@ -69,21 +58,9 @@ public class AppController
         }
     }
 
-    public void ShowAllEquipments()
-    {
-        var equipments = _equipmentService.GetAllEquipments();
-        if (equipments.Count == 0)
-        {
-            Console.WriteLine("Nie znaleziono żadnego sprzętu.");
-            return;
-        }
-
-        foreach (var equipment in equipments) Console.WriteLine(equipment.ToString());
-    }
-
     public void ShowAvailableEquipments()
     {
-        var equipments = _equipmentService.GetAvailableEquipments();
+        var equipments = equipmentService.GetAvailableEquipments();
         if (equipments.Count == 0)
         {
             Console.WriteLine("Nie znaleziono dostępnego sprzętu.");
@@ -95,7 +72,7 @@ public class AppController
 
     public void ShowUserActiveRentals(int userId)
     {
-        var rentals = _rentalService.GetUserActiveRentals(userId);
+        var rentals = rentalService.GetUserActiveRentals(userId);
         if (rentals.Count == 0)
         {
             Console.WriteLine("Nie znaleziono aktywnych wypożyczeń dla tego użytkownika.");
@@ -107,7 +84,7 @@ public class AppController
 
     public void ShowUserAllRentals(int userId)
     {
-        var rentals = _rentalService.GetUserAllRentals(userId);
+        var rentals = rentalService.GetUserAllRentals(userId);
         if (rentals.Count == 0)
         {
             Console.WriteLine("Nie znaleziono żadnych wypożyczeń dla tego użytkownika.");
@@ -117,27 +94,20 @@ public class AppController
         foreach (var rental in rentals) Console.WriteLine(rental.ToString());
     }
 
-    public void ShowActiveRentals()
+    public void ShowSummary()
     {
-        var rentals = _rentalService.GetActiveRentals();
-        if (rentals.Count == 0)
-        {
-            Console.WriteLine("Nie znaleziono aktywnych wypożyczeń.");
-            return;
-        }
+        var users = userService.GetAllUsers();
+        var equipments = equipmentService.GetAllEquipments();
+        var availableEquipments = equipmentService.GetAvailableEquipments();
+        var rentals = rentalService.GetAllRentals();
+        var activeRentals = rentalService.GetActiveRentals();
+        var expiredRentals = rentalService.GetExpiredRentals(DateTime.Now.Date);
 
-        foreach (var rental in rentals) Console.WriteLine(rental.ToString());
-    }
-
-    public void ShowExpiredRentals()
-    {
-        var rentals = _rentalService.GetExpiredRentals(DateTime.Now.Date);
-        if (rentals.Count == 0)
-        {
-            Console.WriteLine("Nie znaleziono przedawnionych wypożyczeń.");
-            return;
-        }
-
-        foreach (var rental in rentals) Console.WriteLine(rental.ToString());
+        Console.WriteLine("Krótkie podsumowanie danych");
+        Console.WriteLine("W systemie znajduje się obecnie:");
+        Console.WriteLine($"- {users.Count} użytkowników");
+        Console.WriteLine($"- {equipments.Count} sprzętów, z czego {availableEquipments.Count} jest dostępnych");
+        Console.WriteLine(
+            $"- {rentals.Count} wypożyczeń, z czego {activeRentals.Count} jest aktywnych i {expiredRentals.Count} jest przedawnionych");
     }
 }

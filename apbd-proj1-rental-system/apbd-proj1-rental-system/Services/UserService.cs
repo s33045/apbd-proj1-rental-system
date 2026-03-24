@@ -4,7 +4,7 @@ namespace apbd_proj1_rental_system.Services;
 
 public class UserService
 {
-    private readonly List<User> _users = new();
+    private readonly List<User> _users = [];
 
     public void AddUser(User user)
     {
@@ -13,12 +13,8 @@ public class UserService
         _users.Add(user);
     }
 
-    public User GetUserById(int userId)
+    public List<User> GetAllUsers()
     {
-        var user = _users.FirstOrDefault(u => u.Id == userId);
-
-        if (user == null) throw new Exception("Nie znaleziono użytkownika.");
-
-        return user;
+        return _users;
     }
 }

@@ -58,4 +58,4 @@ app.ReturnEquipment(3, true, DateTime.Now);
 app.ShowUserAllRentals(student.Id);
 
 Console.WriteLine("\n===== Raport końcowy =====");
-// TODO: raport
+app.ShowSummary();

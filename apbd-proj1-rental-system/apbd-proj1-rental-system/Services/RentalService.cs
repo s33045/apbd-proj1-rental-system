@@ -8,7 +8,7 @@ public class RentalService
 {
     private const decimal PenaltyPerDay = 10m;
     private const decimal DamagePenalty = 50m;
-    private readonly List<Rental> _rentals = new();
+    private readonly List<Rental> _rentals = [];
 
     public void AddRental(User user, Equipment equipment, int days)
     {
@@ -39,7 +39,6 @@ public class RentalService
 
         if (rental.IsReturned) throw new Exception("Wypożyczenie zostało już zwrócone.");
 
-        /*var returnDate = DateTime.Now.Date;*/
         var lateDays = rental.GetDelayDays(returnDate);
         var penalty = lateDays * PenaltyPerDay;
 
@@ -74,5 +73,10 @@ public class RentalService
     public List<Rental> GetExpiredRentals(DateTime date)
     {
         return _rentals.Where(r => r.IsExpired(date.Date)).ToList();
+    }
+
+    public List<Rental> GetAllRentals()
+    {
+        return _rentals;
     }
 }
