@@ -7,7 +7,7 @@ namespace apbd_proj1_rental_system.Services;
 public class RentalService
 {
     private const decimal PenaltyPerDay = 10m;
-    private const decimal DamagePenaltyMultiplier = 1.5m;
+    private const decimal DamagePenalty = 50m;
     private readonly List<Rental> _rentals = new();
 
     public void AddRental(User user, Equipment equipment, int days)
@@ -45,7 +45,7 @@ public class RentalService
 
         if (damaged)
         {
-            penalty *= DamagePenaltyMultiplier;
+            penalty += DamagePenalty;
             rental.Equipment.Status = EquipmentStatus.Damaged;
         }
         else
@@ -54,6 +54,11 @@ public class RentalService
         }
 
         rental.Return(returnDate.Date, penalty);
+    }
+
+    public List<Rental> GetUserAllRentals(int userId)
+    {
+        return _rentals.Where(r => r.User.Id == userId).ToList();
     }
 
     public List<Rental> GetUserActiveRentals(int userId)

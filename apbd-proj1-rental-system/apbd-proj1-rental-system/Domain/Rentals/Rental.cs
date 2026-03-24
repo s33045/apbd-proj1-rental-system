@@ -57,4 +57,11 @@ public class Rental
         ReturnDate = returnDate.Date;
         Penalty = penalty;
     }
+
+    public override string ToString()
+    {
+        var returnedText = IsReturned ? $"Zwrócono {ReturnDate}" : "Nie zwrócono";
+        var penaltyText = $"Kara {Penalty}";
+        return $"{Id} | ({User}) | {Equipment} | {StartDate.Date} - {EndDate.Date} | {returnedText} | {penaltyText}";
+    }
 }

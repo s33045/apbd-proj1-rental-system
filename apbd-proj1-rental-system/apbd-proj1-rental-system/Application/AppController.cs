@@ -105,6 +105,18 @@ public class AppController
         foreach (var rental in rentals) Console.WriteLine(rental.ToString());
     }
 
+    public void ShowUserAllRentals(int userId)
+    {
+        var rentals = _rentalService.GetUserAllRentals(userId);
+        if (rentals.Count == 0)
+        {
+            Console.WriteLine("Nie znaleziono żadnych wypożyczeń dla tego użytkownika.");
+            return;
+        }
+
+        foreach (var rental in rentals) Console.WriteLine(rental.ToString());
+    }
+
     public void ShowActiveRentals()
     {
         var rentals = _rentalService.GetActiveRentals();
